@@ -1,9 +1,9 @@
-const mongoose=require('mongoose');
-const Schema=mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var schema=new Schema({
-    products:{type:Array,require:true}
+var schema = new Schema({
+    userId: {type: String, require: true},
+    products: {type: Array, require: true}
+})
 
-});
-
-module.exports = mongoose.model('Orders',schema);
+module.exports = mongoose.model('Order', schema);
