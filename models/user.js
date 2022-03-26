@@ -8,7 +8,7 @@ var schema=new Schema({
     password:{type:String,require:true},
     firstName:{type:String,require:true},
     lastName:{type:String,require:true},
-    address:{type:String,require:true}
+    address:{type:Array,require:true}
 });
 
 schema.statics.hashPassword= (password)=>{
