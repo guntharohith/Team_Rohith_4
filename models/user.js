@@ -3,7 +3,7 @@ const Schema=mongoose.Schema;
 var bcrypt=require('bcrypt');
 
 var schema=new Schema({
-    phone:{type:Number,require:true},
+    mobileNumber:{type:Number,require:true},
     email:{type:String,require:true},
     password:{type:String,require:true},
     firstName:{type:String,require:true},

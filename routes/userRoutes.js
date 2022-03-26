@@ -8,7 +8,7 @@ var bcrypt=require('bcrypt');
 router.post('/signup',(req,res,next)=>{
   // console.log('users.js 7 '+req.body.email);
     var user= new User({
-    phone:req.body.phone,
+    mobileNumber:req.body.mobileNumber,
     email:req.body.email,
     password:User.hashPassword(req.body.password),
     firstName:req.body.firstName,
