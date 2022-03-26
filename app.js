@@ -12,6 +12,8 @@ var productRouter = require('./routes/productRoutes');
 var indexRouter = require('./routes/index');
 
 var app = express();
+app.use(express.json());
+
 
 //add mongoose
 const mongoose=require('mongoose');
@@ -28,11 +30,18 @@ mongoose.connect(dbURI)
 .catch( (err)=>console.log(err));
 // {useNewUrlParser:true,useUnifiedTopology:true};
 
-//add cors
-var cors=require('cors');
-app.use(cors({
-    origin:'http://localhost:4200'
-}));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+});
 
 
 
