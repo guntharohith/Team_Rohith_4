@@ -1,0 +1,30 @@
+//Initializing package.json
+npm init
+
+//Installing nodemon for automatic server reload
+npm install -g nodemon
+//then run using nodemon
+nodemon server.js
+
+//Installing lodash
+npm install --save lodash
+//Use --save to save dependency in package.json if you have older version of node
+
+//Instaling all dependencies together
+//Suppose you downloaded a project and want to install all the third party libraries together. Then run
+npm install
+//This will see all the dependencies inside package.json and install all the libraries from there.
+
+//Installing express
+npm install express
+
+/Installing EJS
+//EJS is a tool for generating web pages that can include dynamic data and can share templated pieces with other web pages
+npm install ejs
+
+//Installing morgan
+//morgan is a third party tool for logs
+npm install morgan
+
+//Installing mongoose
+npm install mongoose
