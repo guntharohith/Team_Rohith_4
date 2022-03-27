@@ -25,8 +25,6 @@ router.post('/:userId', async (req, res) => {
     const order = new Order({
         userId: userId,
         products: req.body.products,
-        creationDate: req.body.creationDate,
-        subTotal: req.body.subTotal,
         deliveryStatus: Math.floor(Math.random() * 4 + 1)
     });
 
