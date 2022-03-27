@@ -60,7 +60,7 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 //app.use('/cart',cartRouter);
 app.use('/orders',ordersRouter);
-//app.use('/product',productRouter);
+app.use('/product',productRouter);
 
 
 // catch 404 and forward to error handler
