@@ -28,7 +28,7 @@ router.post('/:userId', async (req, res) => {
     });
 
     try{
-        order = await order.save();
+        await order.save();
         return res.status(200).json({order: order});
     }
     catch(err){

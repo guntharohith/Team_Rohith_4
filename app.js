@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //using routes with middleware
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-//app.use('/cart',cartRouter);
+app.use('/cart',cartRouter);
 app.use('/orders',ordersRouter);
 app.use('/product',productRouter);
 
