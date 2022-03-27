@@ -14,18 +14,20 @@ var indexRouter = require('./routes/index');
 var app = express();
 app.use(express.json());
 
+const dotenv = require('dotenv');
+dotenv.config();
 
 //add mongoose
 const mongoose=require('mongoose');
 //Go to this link https://cloud.mongodb.com/v2/61fcffb54ea38e1657f91ef7#security/network/accessList and add your current IP address
 
 //Connect to mongodb
-const dbURI="mongodb+srv://rohithshetty267:g816790264G@cluster0.9175m.mongodb.net/hackrocket?retryWrites=true&w=majority";
+const dbURI=`mongodb+srv://${process.env.DBUSERNAME}:${process.env.PASSWORD}@cluster0.9175m.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 mongoose.connect(dbURI)
 .then( (result)=>{
     console.log('connected to db');
     //listen for requests
-    app.listen(3001);
+    //app.listen(3001);
 })
 .catch( (err)=>console.log(err));
 // {useNewUrlParser:true,useUnifiedTopology:true};
