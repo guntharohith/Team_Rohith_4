@@ -57,8 +57,10 @@ router.delete('/:cartId', async (req, res) => {
 })
 
 //clear cart
-router.delete('/:userId', async (req, res) => {
+router.delete('/clearCart/:userId', async (req, res) => {
+    console.log("cartRoutes.js L61");
     const userId = req.params.userId;
+    console.log("cartRoutes.js L62 " + userId);
     try{
         const cart = await Cart.deleteMany({userId: userId});
         return res.status(200).json({cart: cart});
@@ -75,15 +77,16 @@ router.put('/:cartId', async (req, res) => {
     const quantity = req.body.quantity;
 
     try{
-        var cartItem = await Cart.findById({_id: cartId});
+        var cartItem = await Cart.findById(cartId);
         cartItem.quantity = quantity;
         cartItem.subTotal = cartItem.price * quantity;
         cartItem = await Cart.findByIdAndUpdate({_id: cartId}, cartItem, {useFindAndModify: false});
+        return res.status(200).json({cartItem: cartItem});
     }
     catch(err){
         console.log("cartRoutes.js L80 " + err);
         return res.status(501).json({cartItem: "Unable to update cart"})
     }
-})
+});
 
 module.exports = router;
