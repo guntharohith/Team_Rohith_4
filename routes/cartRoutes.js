@@ -8,7 +8,7 @@ router.post('/:userId', async (req, res) => {
 
     const cart = new Cart({
         name: req.body.name,
-        image: req.body.image,
+        image: req.body.images[0],
         color: req.body.color,
         price: req.body.price,
         quantity: req.body.quantity,
