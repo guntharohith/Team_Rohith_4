@@ -24,10 +24,8 @@ router.post('/:userId', async (req, res) => {
     const userId = req.params.userId;
     const order = new Order({
         userId: userId,
-        products: req.body.products,
-        deliveryStatus: Math.floor(Math.random() * 4 + 1)
+        products: req.body.products
     });
-
     try{
         await order.save();
         return res.status(200).json({order: order});
