@@ -17,8 +17,20 @@ export default function CartReducer(state, action) {
         return { ...state, cart_products: temp, no_of_items: state.no_of_items + 1 }
     }
     if (type === "REMOVE_FROM_CART") {
-        const temp = state.cart_products.filter((product) => product.id !== payload)
-        return { ...state, cart_products: temp, no_of_items: state.no_of_items - 1 }
+        const temp = state.cart_products.filter((product) => product._id !== payload)
+        return { ...state, cart_products: temp }
+    }
+    if (type === "CLEAR_CART") {
+        return {...state,cart_products:[]}
+    }
+    if (type === "UPDATE_CART") {
+        const temp = state.cart_products.filter((product) => {
+            if (product._id === payload.id) {
+                return {...product,quantity:payload.quantity}
+            }
+            return product
+        })
+        return {...state,cart_products:temp}
     }
     return state
 }

@@ -10,9 +10,7 @@ function ProductsList() {
     const { loading } = useProductContext()
     if (loading) {
         return (
-            <Wrapper>
-                <Loading className="loading" />
-            </Wrapper>
+            <div style={{ marginTop: "5rem" }} className='loading'></div>
         )
     }
     if (filtered_products.length < 1) {

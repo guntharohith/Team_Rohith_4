@@ -14,7 +14,7 @@ function Login() {
         email: '',
         password: ''
     })
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const { email, password } = user
 
@@ -23,7 +23,7 @@ function Login() {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
-    const [loginSuccess,setLoginSuccess] = useState(true)
+    const [loginSuccess, setLoginSuccess] = useState(true)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -33,14 +33,18 @@ function Login() {
             setLoginSuccess(success)
             if (success) {
                 localStorage.setItem("token", token)
-                localStorage.setItem("userId",res.data.user._id)
+                localStorage.setItem("userId", res.data.user._id)
                 history.push('/');
                 setLoading(false)
             }
         })
     }
     if (loading) {
-        return <Loading/>
+        return (
+            <div style={{ minHeight: '60vh', paddingTop:'5rem'}}>
+                <Loading />
+            </div>
+        )
     }
     return (
         <Wrapper className='section'>
@@ -61,7 +65,7 @@ function Login() {
                     <button>Sign In</button>
                 </form>
                 <p>Don’t have an account? <Link to='/signup' >Sign Up</Link></p>
-                {!loginSuccess && <p style={{color:"red",marginTop:"1rem"}}>Invalid credentials!</p>}
+                {!loginSuccess && <p style={{ color: "red", marginTop: "1rem" }}>Invalid credentials!</p>}
                 {/* <div className='social-login'>
                     <p>Sign In via socials</p>
                     <div>
@@ -87,9 +91,10 @@ export default Login
 const Wrapper = styled.div`
     padding-top:3rem;
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr;
     gap:2rem;
     .left{
+        display:none;
         img{
             height:400px;
             width:500px;
@@ -133,6 +138,13 @@ const Wrapper = styled.div`
                     cursor:pointer;
                 }
             }
+        }
+    }
+
+    @media screen and (min-width:992px){
+        grid-template-columns:1fr 1fr;
+        .left{
+            display:block;
         }
     }
 `

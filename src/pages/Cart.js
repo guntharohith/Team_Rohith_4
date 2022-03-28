@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import { useCartContext } from '../context/CartContext'
 import { AiFillDelete } from 'react-icons/ai'
@@ -6,14 +6,18 @@ import BreadCrumb from '../components/BreadCrumb'
 import { Link } from 'react-router-dom'
 import Quantity from '../components/Quantity'
 import Loading from '../components/Loading'
+import Checkout from '../components/Checkout'
 function Cart() {
-    const { cart_products,  cart_loading, removeFromCart } = useCartContext()
+    const { cart_products,  cart_loading, removeFromCart, clearCart } = useCartContext()
     let subtotal = 0
     cart_products.map(p => {
         subtotal += (p.price * p.quantity)
         return p
     })
-    console.log(cart_products)
+    const [open, setOpen] = useState(false)
+    const onClose = () => {
+        setOpen(false)
+    }
     if (cart_loading) {
         return <Loading/>
     }
@@ -32,14 +36,14 @@ function Cart() {
                             <h3>Price</h3>
                             <h3>Quantity</h3>
                             <h3>Subtotal</h3>
-                            <h3>Action</h3>
+                            <h3>Remove</h3>
                         </div>
                         <div style={{ marginTop: '2rem' }}>
                             {
                                 cart_products && cart_products.map((product) => {
-                                    const { id, name, price, quantity, stock, image,color } = product
+                                    const { _id, name, price, subTotal, quantity, stock, image,color } = product
                                     return (
-                                        <div key={id} className='row'>
+                                        <div key={_id} className='row'>
                                             <div className='image'>
                                                 <img src={image} alt={name}></img>
                                                 <div>
@@ -50,10 +54,10 @@ function Cart() {
                                             </div>
                                             <p style={{ color: '#bb58fe', fontWeight: '700' }} className='price'>Rs.{price}</p>
                                             <div className='quantity'>
-                                                <Quantity stock={stock} existQuantity={quantity} />
+                                                <Quantity stock={stock} existQuantity={quantity} id={_id} />
                                             </div>
                                             <p style={{ color: '#bb58fe', fontWeight: '700' }} className='price'>Rs.{(price * quantity).toFixed(2)}</p>
-                                            <p><AiFillDelete onClick={() => removeFromCart(id)} /></p>
+                                            <p style={{cursor:"pointer"}}><AiFillDelete onClick={() => removeFromCart(_id)} /></p>
                                         </div>
                                     )
                                 })
@@ -61,14 +65,14 @@ function Cart() {
                         </div>
                         <hr></hr>
                         <div className='clear-cart'>
-                            <button>Checkout</button>
-                            <button>Clear Cart</button>
+                            <button onClick={() => setOpen(true)}>Checkout</button>
+                            <button onClick={() => clearCart()}>Clear Cart</button>
                         </div>
                         <div className='billing-main'>
                             <div className='billing'>
                                 <div>
                                     <h3>Subtotal:</h3>
-                                    <p>Rs.{subtotal}</p>
+                                    <p>Rs.{subtotal.toFixed(2)}</p>
                                 </div>
                                 <div>
                                     <h3>Shipping Fees:</h3>
@@ -77,10 +81,11 @@ function Cart() {
                                 <hr></hr>
                                 <div style={{ marginBottom: '0' }}>
                                     <h2>Total:</h2>
-                                    <p>Rs.{subtotal + 100}</p>
+                                    <p>Rs.{(subtotal + 100).toFixed(2)}</p>
                                 </div>
                             </div>
                         </div>
+                        {open && <Checkout onClose={onClose}/>}
                     </>
             }
         </Wrapper>

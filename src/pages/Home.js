@@ -9,10 +9,12 @@ import Testimonials from '../components/HomeComponents/Testimonials'
 import Hero2 from '../components/HomeComponents/Hero2'
 import Contact from '../components/HomeComponents/Contact'
 import Newsletter from '../components/HomeComponents/Newsletter'
+import Recommendations from '../components/HomeComponents/Recommendations'
 export default function Home() {
     return (
         <Wrapper>
             <Header />
+            <Recommendations/>
             <Categories />
             <Hero1 />
             <FeaturedProducts />

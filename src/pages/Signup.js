@@ -71,10 +71,11 @@ export default Signup
 const Wrapper = styled.div`
     display:grid;
     align-items:center;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr;
     gap:2rem;       
     padding-top:3rem;
     .right{
+        display:none;
         img{
             height:400px;
             width:500px;
@@ -116,6 +117,12 @@ const Wrapper = styled.div`
                     width:1rem;
                 }
             }
+        }
+    }
+    @media screen and (min-width:992px){
+        grid-template-columns:1fr 1fr;
+        .right{
+            display:block;
         }
     }
 `

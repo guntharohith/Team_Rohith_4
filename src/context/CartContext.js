@@ -35,11 +35,23 @@ export default function CartProvider({ children }) {
     }
 
     const removeFromCart = (id) => {
+        axios.delete(backend_url + 'cart/' + id)
         dispatch({ type: "REMOVE_FROM_CART", payload: id })
     }
 
+    const clearCart = () => {
+        axios.delete(backend_url + 'cart/clearCart/' + userId)
+        dispatch({type:"CLEAR_CART"})
+    }
+
+    const updateCart = (id,quantity) => {
+        axios.put(backend_url + 'cart/' + id, { quantity: quantity })
+        console.log(quantity)
+        dispatch({type:"UPDATE_CART",payload: {id,quantity}})
+    }
+
     return (
-        <CartContext.Provider value={{ ...state, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ ...state, addToCart, removeFromCart, clearCart,updateCart }}>
             {children}
         </CartContext.Provider>
     )

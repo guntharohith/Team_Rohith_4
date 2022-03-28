@@ -1,60 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BreadCrumb from '../components/BreadCrumb'
 import { BsArrowRight } from 'react-icons/bs'
-
+import axios from 'axios'
+import { backend_url } from '../utils/constants'
+import Loading from '../components/Loading'
+import { useOrdersContext } from '../context/OrdersContext'
 function Orders() {
-    const orderStatus = ["Order accepted", "Shipped", "Out for delivery", "Delivered"]
-    const orders = [
-        {
-            name: "Wooden table",
-            image: "https://dl.airtable.com/.attachmentThumbnails/89ba7458c24252be77f5a835dd398880/c13ef359",
-            price: 5000,
-            quantity: 5,
-            subTotal: 25000,
-            address: "Some street, nagarkurnool, telangana 509209",
-            date: "Tue 12/10/2022"
-        },
-        {
-            name: "Wooden table",
-            image: "https://dl.airtable.com/.attachmentThumbnails/89ba7458c24252be77f5a835dd398880/c13ef359",
-            price: 5000,
-            quantity: 5, subTotal: 25000,
-            address: "Some street, nagarkurnool, telangana 509209",
-            date: "Tue 12/10/2022"
-        },
-        {
-            name: "Wooden table",
-            image: "https://dl.airtable.com/.attachmentThumbnails/89ba7458c24252be77f5a835dd398880/c13ef359",
-            price: 5000,
-            quantity: 5,
-            subTotal: 25000,
-            address: "Some street, nagarkurnool, telangana 509209",
-            date: "Tue 12/10/2022"
-        },
-        {
-            name: "Wooden table",
-            image: "https://dl.airtable.com/.attachmentThumbnails/89ba7458c24252be77f5a835dd398880/c13ef359",
-            price: 5000,
-            quantity: 5,
-            subTotal: 25000,
-            address: "Some street, nagarkurnool, telangana 509209",
-            date: "Tue 12/10/2022"
-        }
-    ]
-    const temp = 3;
+    const { orders, loading } = useOrdersContext()
+    const orderStatuses = ["Order accepted", "Shipped", "Out for delivery", "Delivered"]
+
+    if (loading) {
+        return <Loading/>
+    }
     return (
         <Wrapper className='section'>
             <BreadCrumb title="Orders"></BreadCrumb>
             <div>
                 {
                     orders.map((order) => {
-                        const { name, image, price, quantity, subTotal, address, date } = order
+                        const { name, image, price, quantity, subTotal, address, date, orderStatus } = order
                         return (
                             <div className='order-item' key={name}>
                                 <img src={image} alt={name}></img>
                                 <div>
-                                    <h2 style={{ marginBottom: '0.5rem' }}>{name}</h2>
+                                    <h2 style={{ marginBottom: '0.5rem',textTransform:"capitalize" }}>{name}</h2>
                                     <p className="info">
                                         <span>Price:</span>
                                         <span className='price'>Rs.{price}</span>
@@ -65,7 +35,7 @@ function Orders() {
                                     </p>
                                     <p className="info">
                                         <span>Subtotal:</span>
-                                        <span className='price'>Rs.{subTotal}</span>
+                                        <span className='price'>Rs.{subTotal.toFixed(2)}</span>
                                     </p>
                                     <p className="info">
                                         <span>Address:</span>
@@ -74,9 +44,9 @@ function Orders() {
                                     <div className='status'>
                                         <span className='label'>Order Status:</span>
                                         {
-                                            orderStatus.map((s,i) => {
+                                            orderStatuses.map((s,i) => {
                                                 return (
-                                                    <div className={i < temp-1 ? "active" : null}>
+                                                    <div className={i < orderStatus ? "active" : null}>
                                                         <span>{s}</span>
                                                         {i !== 3 && <BsArrowRight />}
                                                     </div>
@@ -107,14 +77,16 @@ const Wrapper = styled.div`
         box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
         padding:2rem;
         border-radius:0.5rem;
-        display:flex;
+        display:grid;
         align-items:center;
+        grid-template-columns:1fr;
+        gap:1rem;
         margin-bottom:2rem;
+        overflow:scroll;
         img{
-            height:200px;
-            width:200px;
+            height:220px;
+            width:220px;
             border-radius:1rem;
-            margin-right:2rem;
         }
     }
     .info{
@@ -146,6 +118,11 @@ const Wrapper = styled.div`
         }
         .active{
             font-weight:700;
+        }
+    }
+    @media screen and (min-width:772px){
+        .order-item{
+            grid-template-columns:250px 1fr;
         }
     }
 `

@@ -21,8 +21,8 @@ function FeaturedProducts() {
                 <div className='products'>
                     {
                         products.slice(0,6).map(product => {
-                            const {  id, name, image, price } = product
-                            return <Product key={id} id={id} name={name} image={image} price={price} />
+                            const {  _id, name, images, price } = product
+                            return <Product key={_id} id={_id} name={name} image={images[0]} price={price} />
                         })
                     }
                 </div>

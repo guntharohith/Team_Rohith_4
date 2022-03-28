@@ -6,12 +6,15 @@ import App from './App';
 import ProductProvider from './context/ProductContext'
 import FilterProvider from './context/FilterContext';
 import CartProvider from './context/CartContext';
+import OrdersProvider from './context/OrdersContext'
 
 ReactDOM.render(
   <ProductProvider>
     <FilterProvider>
       <CartProvider>
-        <App />
+        <OrdersProvider>
+          <App />
+        </OrdersProvider>
       </CartProvider>
     </FilterProvider>
   </ProductProvider>,

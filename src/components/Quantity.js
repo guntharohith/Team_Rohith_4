@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-
-function Quantity({stock, existingQuantity}) {
-    const [quantity, setQuantity] = useState(1)
+import { useCartContext } from '../context/CartContext'
+function Quantity({ stock, existQuantity,id }) {
+    const {updateCart} = useCartContext()
+    const [quantity, setQuantity] = useState(existQuantity)
 
     const increase = () => {
         if (quantity >= stock) {
@@ -10,6 +11,7 @@ function Quantity({stock, existingQuantity}) {
         }
         else {
             setQuantity(quantity + 1)
+            updateCart(id,quantity+1)
         }
     }
 
@@ -19,6 +21,7 @@ function Quantity({stock, existingQuantity}) {
         }
         else {
             setQuantity(quantity - 1)
+            updateCart(id,quantity-1)
         }
     }
     return (
